@@ -94,7 +94,7 @@ myObject.foo = "bar";
 
 正如我们被暗示的那样，在 `myObject` 上的 `foo` 遮蔽没有看起来那么简单。我们现在来考察 `myObject.foo = "bar"` 赋值的三种场景，当 `foo` **不直接存在** 于 `myObject`，但 **存在** 于 `myObject` 的 `[[Prototype]]` 链的更高层时：
 
-1. 如果一个普通的名为 `foo` 的数据访问属性在 `[[Prototype]]` 链的高层某处被找到，**而且没有被标记为只读（`writable:false`）**，那么一个名为 `foo` 的新属性就直接添加到 `myObject` 上，形成一个 **遮蔽属性**。
+1. 如果一个普通的名为 `foo` 的数据访问属性在 `[[Prototype]]` 链的高层某处被找到，**而且没有被标记为只读（`writable:True`）**，那么一个名为 `foo` 的新属性就直接添加到 `myObject` 上，形成一个 **遮蔽属性**。
 2. 如果一个 `foo` 在 `[[Prototype]]` 链的高层某处被找到，但是它被标记为 **只读（`writable:false`）** ，那么设置既存属性和在 `myObject` 上创建遮蔽属性都是 **不允许** 的。如果代码运行在 `strict mode` 下，一个错误会被抛出。否则，这个设置属性值的操作会被无声地忽略。不论怎样，**没有发生遮蔽**。
 3. 如果一个 `foo` 在 `[[Prototype]]` 链的高层某处被找到，而且它是一个 setter（见第三章），那么这个 setter 总是被调用。没有 `foo` 会被添加到（也就是遮蔽在）`myObject` 上，这个 `foo` setter 也不会被重定义。
 
